@@ -1,0 +1,142 @@
+<div class="container">
+    <div class="row form-group">
+        <div class="col-md-9 text-center">
+            <h3 class="text-info"> 
+                Manage Transport - {{transport.length}} 
+            </h3>
+        </div>
+		 <div class="col-md-3">
+		 <br>
+			<input type="text" class="form-control input-sm" placeholder="Search" [(ngModel)]="searchkey">
+		 </div>
+    </div>
+
+    <div class="row">
+		<div class="col-md-3">
+		<p class="text-center text-success">{{msg}}</p>
+		
+		<div class="panel panel-danger">
+                    <div class="panel-heading">New Transport</div>
+                    <div class="panel-body">
+		    <div class="form-group">
+                        <label>Transport Number</label>
+                        <input type="text" class="form-control" [(ngModel)]="tnumber">
+                    </div>
+                    <div class="form-group">
+                        <label>Route Name</label>
+                         <input type="text" class="form-control" [(ngModel)]="troot">
+                    </div>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <select class="form-control" [(ngModel)]="tsize">
+                            <option>Small</option>
+                            <option>Medium</option>
+                            <option>Large</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Drive Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="tdname">
+                    </div>
+                    <div class="form-group">
+                        <label>Drive Mobile No</label>
+                        <input type="text" class="form-control" [(ngModel)]="tdmobile">
+                    </div>
+			<button class="btn btn-primary btn-block" (click)="save()">Save</button>
+		</div>
+		</div>
+		
+		</div>
+        <div class="col-md-9 col-xs-12 col-sm-12">
+            <table class="table table-bordered table-hover">
+                <thead class="text-danger">
+                    <tr class="active">
+                        <th>T-Id</th>
+                        <th>T-Number </th>
+                        <th>Type </th>
+                        <th>Transport root</th>
+                        <th>Driver </th>
+                        <th>Mobile No </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of transport | filter:searchkey">
+                        <td> {{row.tid}} </td>
+                        <td> {{row.vannumber}} </td>
+                        <td> {{row.type}}</td>
+                        <td> {{row.rootname}}</td>
+                        <td> {{row.drivername}}</td>
+                        <td> {{row.drivermobile}}</td>
+                        <td class="text-center">
+                            <button (click)="getrootmaster(row.tid,row.rootname)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#rootmater">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                Root Master
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--modal for class start here-->
+
+<div class="modal fade" id="rootmater" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add / View Rootmaster Under - {{rootname}}</h4>
+        </div>
+        <div class="modal-body">
+			<p class="text-info text-center">{{rootmsg}}</p>
+            <div class="row form-group">
+				<div class="col-md-6"> 
+					<label>Root Master Name</label> 
+					<input type="text" class="form-control" [(ngModel)]="rname">
+				</div>
+				<div class="col-md-6">
+					<label>Cost</label>
+					<input type="number" class="form-control" [(ngModel)]="cost">
+				</div>
+            </div>
+			 <div class="row form-group">
+				<div class="col-md-6"> 
+					<label>From Location</label> 
+					<input type="text" class="form-control" [(ngModel)]="froml">
+				</div>
+				<div class="col-md-6">
+					<label>To Location</label>
+					<input type="text" class="form-control" [(ngModel)]="to">
+				</div>
+            </div>
+			<hr>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" (click)="saveroot()">Save Root master</button>
+            </div>
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Rootmaster Id</th>
+                        <th>Rootmaster Name</th>
+                        <th>From Location</th>
+                        <th>To Location</th>
+                        <th>Fair Cost</th>
+                    </tr>
+					  <tr *ngFor="let row of rootmaster">
+                        <td> {{row.rootid}} </td>
+                        <td> {{row.rootmastername}} </td>
+                        <td> {{row.fromloc}} </td>
+                        <td> {{row.toloc}} </td>
+                        <td> {{row.cost}} </td>
+                    </tr>
+                </thead>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+<!--new section modal end here-->

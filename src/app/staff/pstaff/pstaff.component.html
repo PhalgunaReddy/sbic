@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row" *ngIf="showemp">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <caption>
+                    <div class="row">
+                        <div class="col-md-9 text-center"><h3>Employee List</h3></div>
+                        <br>
+                        <div class="col-md-3">
+                            <button class="btn btn-success" (click)="hideshow('new')">New Employee</button>
+                        </div>
+                    </div>
+                </caption>
+                <thead class="text-danger">
+                    <tr>
+                        <th>Emp Id</th>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>E-Mail</th>
+                        <th>Dept</th>
+                        <th>Salary</th>
+                        <th>DOJ</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let row of emplist">
+                    <tr>
+                        <td>{{row.empid}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.mobile}}</td>
+                        <td>{{row.email}}</td>
+                        <td>{{row.dept}}</td>
+                        <td>{{row.salary}}</td>
+                        <td>{{row.doj}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="!showemp">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3 class="text-center">New Employee</h3>
+            <hr>
+            <div class="form-group">
+                <label>Emp Name</label>
+                <input type="text" class="form-control" [(ngModel)]="name">
+            </div>
+            <div class="form-group">
+                <label>Emp Mobile</label>
+                <input type="text" class="form-control" [(ngModel)]="mobile">
+            </div>
+            <div class="form-group">
+                <label>Emp email</label>
+                <input type="email" class="form-control" [(ngModel)]="email">
+            </div>
+            <div class="form-group">
+                <label>Emp Salary</label>
+                <input type="text" class="form-control" [(ngModel)]="salary">
+            </div>
+            <div class="form-group">
+                <label>Emp Dept</label>
+                <input type="text" class="form-control" [(ngModel)]="dept">
+            </div>
+            <div class="form-group">
+                <label>Emp Joining Date</label>
+                <input type="date" class="form-control" [(ngModel)]="doj">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" (click)="saveemp()">Save Employee</button>
+                &nbsp;
+                <button class="btn btn-danger" (click)="hideshow('list')">Close</button>
+            </div>
+        </div><!-- 6 Ends Here -->
+        <div class="col-md-3"></div>
+    </div>
+</div>

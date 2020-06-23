@@ -1,0 +1,113 @@
+
+@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/font-awesome/css/font-awesome.css";
+
+
+.loginborder{
+    padding:30px;
+    box-shadow: 0px 0px 20px darkblue;
+    border-radius:10px;
+}
+
+.dashicon .glyphicon{
+    font-size:40px;
+}
+
+.red{
+    color:rgb(138, 28, 101);
+}
+
+.green{
+    color:green;
+}
+
+.blue{
+    color:blue;
+}
+
+.orange{
+    color:orange;
+}
+.maroon{
+    color:maroon;
+}
+
+.skyblue{
+    color:skyblue;
+}
+
+.darkblue{
+    color:darkblue;
+}
+
+.dashicon{
+    background:#eee;
+    padding:10px;
+    border-radius:5px;
+}
+
+.dashicon:hover{
+    box-shadow: 0px 0px 15px grey;
+}
+
+body{
+    padding-top:100px;
+	min-height:600px !important;
+}
+
+.mydash a:hover{
+    text-decoration: none;
+}
+
+body {
+    padding-right:0px !important;
+    margin-right:0px !important;
+}
+
+
+body.modal-open {
+    overflow: auto;
+}
+.tophead{
+    padding: 10px;
+	color:black;
+	background: #eee3e3;
+}
+
+
+.navbar-inverse {
+	background-color:#090422 !important;
+border-color: #090422 !important;
+box-shadow: 0px 0px 11px #083268 !important;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+	font-weight:bold;
+}
+em{
+	font-weight:bold;
+	font-size:18px;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 15px 20px;
+}
+
+.btn-sm{
+	padding:3px 10px !important;
+}
+td{  padding:4px !important; vertical-align: none !important;}
+
+.table > tbody > tr > td {
+    padding: 4px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color:white;
+}

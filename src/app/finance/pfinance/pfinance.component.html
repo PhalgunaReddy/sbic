@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row form-group">
+        <div class="col-md-12 text-center">
+            <h3 class="text-info">Finance Report</h3>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <select class="form-control" #y>
+                <option *ngFor="let x of year">{{x}}-{{x+1}}</option>
+            </select>    
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" #c>
+                <option value="">All</option>
+                <option *ngFor="let x of class">{{x.classname}}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" #t>
+                <option value="">All</option>
+                <option *ngFor="let x of type">{{x}}</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <div class="btn btn-primary" (click)="search(y.value,c.value,t.value)">Search</div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center text-info">Total Records : {{datalist.length}}</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Moile No</th>
+                        <th>Father Name</th>
+                        <th>Total Payment</th>
+                        <th>Pay Type</th>
+                        <th>Pay Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of datalist">
+                        <td>{{row.studentname}}</td>
+                        <td>{{row.mobile}}</td>
+                        <td>{{row.fathername}}</td>
+                        <td>{{row.tolfee}}</td>
+                        <td>{{row.purpose}}</td>
+                        <td>{{row.paymentdate}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Total</td>
+                        <td colspan="3">{{total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

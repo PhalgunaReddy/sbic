@@ -1,0 +1,245 @@
+	<form [formGroup]="registerForm" (ngSubmit)="save()">
+		<div class="row">
+        <div class="col-md-5 text-center form-group">
+            <h3 class="text-info">
+                <i class="fa fa-user-plus"></i> New Admission
+            </h3>
+        </div>
+		<div class="col-md-7 form-group">
+            <h4 class="text-success">
+                {{msg}}
+            </h4>
+			<i class="text-danger"> * Marked fields are mandatory !</i>
+        </div>
+		</div>
+		<div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-info">
+                <div class="panel-heading">Student Details</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Student name <em class="text-danger">*</em></label>
+            <input type="text" class="form-control" formControlName="sname">
+            <input type="hidden" class="form-control" [(ngModel)]="id" formControlName="schoolid">
+			<div *ngIf="submitted && registerForm.controls.sname.errors">
+				<i class="text-danger">Invalid student name</i>
+			</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of birth <em class="text-danger">*</em></label>
+                        <div class="form-group row">
+                                
+                                <div class="col-sm-4">
+                                  <select class="form-control" formControlName="day">
+                                      <option value="">Day</option>
+                                      <option *ngFor="let d of day" value="{{d}}">{{d}}</option>
+                                  </select>
+								  <div *ngIf="submitted && registerForm.controls.day.errors">
+				<i class="text-danger">Invalid day</i>
+			</div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <select class="form-control" formControlName="month">
+                                      <option value="">Month</option>
+                                  <option *ngFor="let m of month" value="{{m}}">{{m}}</option>
+                                  </select>
+								  <div *ngIf="submitted && registerForm.controls.month.errors">
+				<i class="text-danger">Invalid month</i>
+			</div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <select class="form-control" formControlName="year">
+                                      <option value="">Year</option>
+                                      <option *ngFor="let y of year" value="{{y}}">{{y}}</option>
+                                  </select>
+								  <div *ngIf="submitted && registerForm.controls.year.errors">
+				<i class="text-danger">Invalid year</i>
+			</div>
+                                </div>
+                              </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Admission Class <em class="text-danger">*</em></label>
+                        <div class="row">
+                                <div class="col-sm-6">
+               <select class="form-control"  formControlName="classid" #classid (change)="getsection(classid.value)">
+                        <option value="">Choose</option>
+                        <option *ngFor="let row of classlist" value="{{row.classid}}">{{row.classname}}</option>
+                                  </select>
+								  <div *ngIf="submitted && registerForm.controls.classid.errors">
+				<i class="text-danger">Invalid class name</i>
+			</div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <select class="form-control" formControlName="section">
+                                    <option value="">Choose Section</option>
+                                    <option *ngFor="let row of section" value="{{row.sectionid}}">{{row.sectionname}}</option>
+                                  </select>
+                                </div>
+                                </div>
+                    </div>
+					
+					<div class="form-group">
+                        <label>Date of Admission <em class="text-danger">*</em></label>
+                        <div class="form-group row">
+							<div class="col-sm-4">
+							  <select class="form-control" formControlName="aday">
+								  <option value="">Day</option>
+								  <option *ngFor="let d of day" value="{{d}}">{{d}}</option>
+							  </select>
+							  <div *ngIf="submitted && registerForm.controls.aday.errors">
+				<i class="text-danger">Invalid day</i>
+			</div>
+							</div>
+							<div class="col-sm-4">
+							  <select class="form-control" formControlName="amonth">
+								  <option value="">Month</option>
+							  <option *ngFor="let m of month" value="{{m}}">{{m}}</option>
+							  </select>
+							  <div *ngIf="submitted && registerForm.controls.amonth.errors">
+				<i class="text-danger">Invalid month</i>
+			</div>
+							</div>
+							<div class="col-sm-4">
+							  <select class="form-control" formControlName="ayear">
+							  <option value="">Year</option>
+								  <option *ngFor="let y of year" value="{{y}}">{{y}}</option>
+							  </select>
+							  <div *ngIf="submitted && registerForm.controls.ayear.errors">
+				<i class="text-danger">Invalid year</i>
+			</div>
+							</div>
+							
+                        </div>
+                    </div>
+					 <div class="form-group">
+                        <label>Admission Session <em class="text-danger">*</em></label>
+            <select class="form-control" formControlName="session">
+			<option value="">Choose</option>
+			<option *ngFor="let y of year" selected value="{{y}}-{{y+1}}">{{y}}-{{y+1}}</option>
+							  </select>
+							  <div *ngIf="submitted && registerForm.controls.session.errors">
+				<i class="text-danger">Invalid session</i>
+			</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Old School</label>
+            <input type="text" class="form-control" formControlName="oldschool">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+		  
+     
+
+        <div class="col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Parent Details</div>
+                    <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Father name <em class="text-danger">*</em> </label>
+                                        <div class="col-sm-7">
+                              <input type="text" class="form-control" formControlName="fname"/>
+							  <div *ngIf="submitted && registerForm.controls.fname.errors">
+				<i class="text-danger">Invalid input</i>
+			</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Mother Name</label>
+                                        <div class="col-sm-7">
+                               <input type="text" class="form-control"  formControlName="mname"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Mobile No <em class="text-danger">*</em></label>
+                                        <div class="col-sm-7">
+                              <input type="text" class="form-control"  formControlName="mobile"/>
+							  <div *ngIf="submitted && registerForm.controls.mobile.errors">
+				<i class="text-danger">Invalid mobile no</i>
+			</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Adhar No</label>
+                                        <div class="col-sm-7">
+                              <input type="text" class="form-control"  formControlName="adhar"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                 
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Religion</label>
+                                        <div class="col-sm-7">
+                           <input type="text" class="form-control"  formControlName="religion"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Caste</label>
+                                        <div class="col-sm-7">
+                                          <select class="form-control"  formControlName="caste">
+                                            <option value="">Choose</option>
+                                            <option value="OBC">OBC</option>
+                                            <option value="SC">SC</option>
+                                            <option value="ST">ST</option>
+                                            <option value="GEN">GEN</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row form-group">
+                                    <div class="col-md-6 form-group">
+                                        <label>Parent Occupation</label>
+                              <input type="text" class="form-control"  formControlName="focc"/>
+                                      </div>
+									  
+									  <div class="col-md-6  form-group">
+                            <label>Any Id Proof No</label>
+                            
+                              <input type="text" class="form-control" formControlName="idproof">
+                            
+                          </div>
+                                    </div>
+                                  <div class="row">
+                                    
+                                       
+                                        <div class="col-md-12">
+                                                <label>Address <em class="text-danger">*</em></label>
+                               <textarea class="form-control"  formControlName="address" style="height:100px !important;"></textarea>
+							   <div *ngIf="submitted && registerForm.controls.address.errors">
+				<i class="text-danger">Please enter address</i>
+			</div>
+			<br><br>
+			<div class="text-center">
+        <button class="btn btn-primary"> Register </button> &nbsp;  &nbsp;
+        <button type="reset" class="btn btn-warning" > Clear All </button>
+    </div>
+	<br><br>
+                                        </div>
+                                      
+                                  </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+</form>
+    <br>  <br>  <br>

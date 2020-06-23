@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row" *ngIf="showemp">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-9 text-center"><h3>Activity List</h3></div>
+                    <br>
+                <div class="col-md-3">
+                    <button class="btn btn-success" (click)="hideshow('new')">New Activity</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4 form-group" *ngFor="let row of activitylist; let i=index;">
+                    <div class="panel panel-{{color[i%6]}}">
+                        <div class="panel-heading">{{row.name}}</div>
+                        <div class="panel-body">
+                            <p>Start Date:{{row.fromdate}}</p>
+                            <p>End Date:{{row.todate}}</p>
+                            <p><b>About Activity:</b> {{row.details}}</p>
+                        </div>
+                        <div class="panel-footer">
+                            <b>Activity Head: {{row.head}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!showemp">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3 class="text-center">New Employee</h3>
+            <hr>
+            <div class="form-group">
+                <label>Activity Name</label>
+                <input type="text" class="form-control" [(ngModel)]="name">
+            </div>
+            <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" class="form-control" [(ngModel)]="fromdate">
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <input type="date" class="form-control" [(ngModel)]="todate">
+            </div>
+            <div class="form-group">
+                <label>About Activity</label>
+                <textarea class="form-control" [(ngModel)]="details"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Activity Head Name</label>
+                <input type="text" class="form-control" [(ngModel)]="head">
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" (click)="saveactivity()">Save Activity</button>
+                &nbsp;
+                <button class="btn btn-danger" (click)="hideshow('list')">Close</button>
+            </div>
+        </div><!-- 6 Ends Here -->
+        <div class="col-md-3"></div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h3 class="text-info text-center">Login</h3>
+            <p *ngIf="error" class="text-center alert alert-danger"> {{msg}} </p>
+            <div class="loginborder">
+			<p>Enter Your login details !</p>
+                 <div class="form-group input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    </span>
+                    <input type="text" placeholder="Enter Username" class="form-control" [(ngModel)]="username">
+                </div>
+
+                <div class="form-group input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input type="password"  placeholder="Enter Password"  class="form-control" [(ngModel)]="pass">
+                </div>
+                <button class="btn btn-danger btn-block" (click)="gologin()">Login</button>
+				
+             </div>    
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>

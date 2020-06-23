@@ -1,0 +1,115 @@
+<div class="container">
+    <div class="row form-group">
+        <div class="col-md-9 text-center">
+            <h3 class="text-info"> 
+                Manage Classes & Sections 
+            </h3>
+        </div>
+        <div class="col-md-3">
+            <br>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#newclass">
+                <i class="glyphicon glyphicon-plus"></i>
+                Add New Class
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+		<div class="col-md-2"></div>
+        <div class="col-md-8 col-xs-12 col-sm-12">
+            <table class="table table-bordered table-hover">
+                <thead class="text-danger">
+                    <tr>
+                        <th>Class Id</th>
+                        <th> Class Name </th>
+                        <th> Class Fee Monthly </th>
+                        <th> Active Status </th>
+                        <th class="text-center"> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of classlist">
+                        <td> {{row.classid}} </td>
+                        <td> {{row.classname}} </td>
+                        <td> {{row.classfee}} </td>
+                        <td> {{row.status}}</td>
+                        <td class="text-center">
+                            <button (click)="getsection(row.classid,row.classname)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#section">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                Add / View Sections
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="col-md-2"></div>
+    </div>
+</div>
+
+<!--modal for class start here-->
+<div class="modal fade" id="newclass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add Class</h4>
+        </div>
+        <div class="modal-body">
+			<p class="text-info text-center">{{classmsg}}</p>
+           <div class="form-group">
+               <label>Enter New Class Name</label>
+               <input type="text" class="form-control"[(ngModel)]="newclassname">
+           </div>
+		   <div class="form-group">
+               <label> Class Fee Monthly</label>
+               <input type="text" class="form-control"[(ngModel)]="classfee">
+           </div>
+        </div>
+        <div class="modal-footer">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" (click)="saveclass()">Save</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!--modal for class end here-->
+
+<!--new section modal start here-->
+<div class="modal fade" id="section" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add / View Sections</h4>
+        </div>
+        <div class="modal-body">
+			<p class="text-info text-center">{{secmsg}}</p>
+            <div class="form-group">
+               
+				<p> Enter New section name under : <b>{{classname}}</b> </p>
+				
+                <input type="text" class="form-control" [(ngModel)]="newsecname">
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" (click)="savesection()">Save</button>
+            </div>
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Section Id</th>
+                        <th>Section Name</th>
+                    </tr>
+					  <tr *ngFor="let row of section">
+                        <td> {{row.sectionid}} </td>
+                        <td> {{row.sectionname}} </td>
+                    </tr>
+                </thead>
+            </table>
+          </div>
+        </div>
+    </div>
+</div>
+<!--new section modal end here-->

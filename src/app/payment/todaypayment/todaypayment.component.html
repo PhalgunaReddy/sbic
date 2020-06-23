@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+	<div class="col-md-12">
+		<table id="order-listing" class="table table-bordered">
+		<caption>
+			<div class="row">
+				<div class="col-md-8">
+					<h3 class="text-info text-center"> Today Payments : {{paymentlist.length}}</h3>
+				</div>
+				<div class="col-md-4">
+					<input type="text" class="form-control input-sm" placeholder="Search here by name , mobile, father name, class" [(ngModel)]="searchkey">
+				</div>
+			</div>
+		</caption>
+		  <thead>
+			<tr class="active">
+				<th>#id</th>
+				<th>Name</th>
+				<th>Total Amount</th>
+				<th>Father </th>
+				<th>Mobile</th>
+				<th>Purpose</th>
+				<th>Class</th>
+				<th class="text-center">Date</th>
+				
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let row of paymentlist | filter:searchkey |paginate: { itemsPerPage: 10, currentPage: p }; let i=index;">
+				<td>{{row.studentid}}</td>
+				<td>{{row.studentname}}</td>
+				<td>Rs . {{row.tolfee}}</td>
+				<td>{{row.fathername}}</td>
+				<td>{{row.mobile}}</td>
+				<td>{{row.purpose}}</td>
+				<td>{{row.classname}}</td>
+				<td>{{row.paymentdate}}</td>
+			</tr>
+			
+			<tr class="success">
+				<th colspan="2" class="text-right"> Total Collection : </th>
+				<th colspan="6">Rs . {{totalfee}}</th>
+			</tr>
+			
+		  </tbody>
+		</table>
+	</div>
+  </div>
+  <div class="row">
+	<div class="col-md-12 text-center">
+		<pagination-controls (pageChange)="p = $event"></pagination-controls>
+	</div>
+  </div>
+</div>

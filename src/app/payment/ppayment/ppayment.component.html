@@ -1,0 +1,223 @@
+	<div class="container">
+	<div class="row form-group">
+		<div class="col-md-12 text-center">
+			 <h3 class="text-info"> 
+				<i class="fa fa-money-bill-alt"></i> 
+				Fee Collection - Total {{allstudent.length}} Students
+			 </h3>
+		</div>
+	</div>
+	     
+	<div class="row form-group">
+	<div class="col-md-7">
+		<div class="row">
+			<div class="col-md-3 form-group">
+				<select class="form-control" #y>
+					<option *ngFor="let y of year" value="{{y}}-{{y+1}}">{{y}}-{{y+1}}</option>
+				</select>
+		  </div>
+		   
+			<div class="col-sm-3 form-group">
+				<select class="form-control"   #c (change)="getsection(c.value)">
+					<option value="">All Class</option>
+					<option *ngFor="let row of classlist" value="{{row.classid}}">{{row.classname}}</option>
+				</select>
+		  </div>
+		   <div class="col-md-3 form-group">
+			<select class="form-control" #sec>
+				<option value="">All Section</option>
+				<option *ngFor="let row of section" value="{{row.sectionid}}">{{row.sectionname}}</option>
+			  </select>
+		  </div>	
+		<div class="col-md-3 form-group">
+			<input type="text" class="form-control" placeholder="Mobile No" [(ngModel)]="mobile">
+		</div>
+		  </div>
+		  </div>
+		  <div class="col-md-3">
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<select class="form-control"  #m>
+						<option value="">Months</option>
+					<option *ngFor="let m of month" value="{{m}}">{{m}}</option>
+					</select>
+				</div>
+				<div class="col-md-6 form-group">
+					<select class="form-control" #due>
+						<option value="due">Due</option>
+						<option value="paid">Paid</option>
+					</select>
+				</div>
+				
+			</div>
+		  </div>
+		  <div class="col-md-2">
+		   <button class="btn btn-primary btn-block" (click)="search(y.value, m.value,c.value,sec.value, due.value)">
+			Search
+			</button>
+		  </div>
+		</div>
+	
+	
+	<div class="row">
+                <div class="col-md-12">
+				  <div *ngIf="showloder" class="text-center">
+					<i class="fa fa-sync-alt fa-spin fa-2x text-success"></i>
+					<p>Please wait processing ...</p>
+				  </div>
+				  <div *ngIf="showtable && !showloder" class="text-center">
+					<p class="text-danger"> No Records !</p>
+				  </div>
+                    <table *ngIf="!showtable" id="order-listing" class="table table-bordered">
+					<caption>
+						<div class="row">
+							<div class="col-md-5">
+								<p class="text-info text-center"> Search Results : {{student.length}}</p>
+							</div>
+							<div class="col-md-3">
+							
+						<a href="javascript:void(0)" (click) = toggleDisplay()>Show Mobile No</a>
+							</div>
+							<div class="col-md-4">
+								<input type="text" class="form-control input-sm" placeholder="Search here by name , mobile, father name, class" [(ngModel)]="searchkey">
+							</div>
+						</div>
+					</caption>
+                      <thead>
+                        <tr class="success">
+						 <th>#id</th>
+                            <th>Name</th>
+                            <th>Father </th>
+                            <th>Mobile</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+						<tr *ngFor="let row of student | filter:searchkey |paginate: { itemsPerPage: 15, currentPage: p }; let i=index;">
+							<td>{{row.studentid}}</td>
+							<td>{{row.studentname}}</td>
+							<td>{{row.fathername}}</td>
+							<td>{{row.mobile}}</td>
+							<td>{{row.classname}}</td>
+							<td>{{row.sectionname}}</td>
+							<td class="text-center">
+								<button (click)="setpay(row.studentid , row.studentname, y.value, row.classfee, row.mobile)" class="btn btn-info btn-sm"  data-toggle="modal" data-target="#feepayment">
+									<i class="fa fa-money-bill-alt"></i> Pay 
+								</button>
+								&nbsp;&nbsp;
+								<button class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#">
+									<i class="fa fa-eye"></i> Details
+								</button>
+							</td>
+						</tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+			  <div class="row" *ngIf="!showtable">
+				<div class="col-md-12 text-center">
+					<pagination-controls (pageChange)="p = $event"></pagination-controls>
+				</div>
+			  </div>
+			  <br>
+			  <p [hidden] = "isShow">{{allmobile}}</p>
+			  <br><br>
+	</div>
+	
+	<div class="modal fade" id="feepayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title text-success" id="myModalLabel">
+				<b>Student : {{payname}} , Year : {{payyear}}</b>
+			</h4>
+        </div>
+        <div class="modal-body">
+			
+			<div class="row" style="border-bottom:1px solid skyblue;">
+				<div class="col-md-12"> 
+					<p><b>School Paid Fee  -:</b></p>
+					<p *ngFor="let x of messages" class="col-md-3">
+					  <i class="glyphicon glyphicon-check"></i> {{x}}
+					</p>
+				</div>
+			</div>
+			
+			<p class="text-center text-danger">{{paymsg}}</p>
+			<div class="row form-group" style="border-bottom:1px solid skyblue;">
+				<p class="col-md-12 text-info"> <b>Pending School Fee -:</b></p>
+				<div class="col-md-4 form-group" *ngFor="let mon of paymonth"> 
+					<input type="checkbox" (change)="onChange($event.target.checked, mon)"> {{mon}}
+				</div>
+			</div>
+			
+			<div class="row form-group" style="border-bottom:1px solid skyblue;">
+				<div class="col-md-12"> 
+					<p><b>Transport Paid Fee  -:</b></p>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Year</th>
+								<th>Month</th>
+								<th>Amount</th>
+								<th>Pay Date</th>
+							</tr>
+						</thead>
+							<tbody>
+								<tr *ngFor="let x of oldtransportpay">
+									<td>{{x.year}}</td>
+									<td>{{x.transportmonth}}</td>
+									<td>{{x.transportcost}}</td>
+									<td>{{x.paymentdate}}</td>
+								</tr>
+							</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="row form-group">
+				<div class="col-md-3"><b>Transport</b></div>		
+				<div class="col-md-3">	
+							<select class="form-control" #transport (change)="gettcost(transport.value,formonth.value)">
+		<option value="">Select Root</option>
+	<option *ngFor="let root of rootmaster; let i=index" value="{{i}}">{{root.rootmastername}}</option>
+							</select>
+				</div>
+				<div class="col-md-3">	
+					<select class="form-control" #formonth  (change)="gettcost(transport.value,formonth.value)">
+						<option value="">Month</option>
+						<option value="1">1 Month</option>
+						<option value="2">2 Month</option>
+						<option value="3">3 Month</option>
+						<option value="4">4 Month</option>
+						<option value="5">5 Month</option>
+						<option value="6">6 Month</option>
+						<option value="7">7 Month</option>
+						<option value="8">8 Month</option>
+						<option value="9">9 Month</option>
+						<option value="10">10 Month</option>
+						<option value="11">11 Month</option>
+						<option value="12">12 Month</option>
+					</select>
+				</div>
+				<div class="col-md-3"><input type="textbox" class="form-control"  [(ngModel)]="totaltcost"></div>
+        </div>	
+		<div class="row form-group">
+				<div class="col-md-3"><b>School Fee</b></div>
+				<div class="col-md-9"><input type="number" class="form-control" [(ngModel)]="totschoolfee"></div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-3"><b>Total Amount</b></div>
+				<div class="col-md-9"><input type="number" class="form-control" [(ngModel)]="payableAmount"></div>
+			</div>
+			<div class="text-center" *ngIf="btnshow">
+				<button class="btn btn-primary" (click)="payfee()">Pay Now</button>
+			</div>
+			
+        </div>
+        </div>
+    </div>
+</div>
